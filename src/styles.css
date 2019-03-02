@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+section {
+    padding: 20px 0;
+  }
+
+  p.card-text,
+  h4.card-title {
+    min-height: 96px !important;
+  }
+  
+  .card-title {
+    color: #007bff;
+    cursor: pointer;
+  }  
