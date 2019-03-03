@@ -1,12 +1,69 @@
 <section id="wall">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-7">
-
+  <!--- \\\\\\\Post-->
+  <div class="card gedf-card">
+      <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="ml-2">
+                      <div class="h5 m-0">Share your post here!</div>
+                  </div>
+              </div>
+          </div>
       </div>
-      <div class="col-md-5">
-        
-      </div>
+    <div class="card-body">
+      <form #formPost="ngForm" (ngSubmit)="onSavePost(formPost)">
+          <div class="form-group">
+              <label for="title" class="col-form-label"></label>
+              <input type="text" class="form-control" name="title" placeholder="Post Title" [(ngModel)]="this.dataApi.selectedPost.title">
+          </div>
+          <div class="form-group">
+              <label class="sr-only" for="message">post</label>
+              <textarea class="form-control" name="description" rows="3" placeholder="What are you thinking?" [(ngModel)]="this.dataApi.selectedPost.description"></textarea>
+          </div>
+          <div class="form-group">
+              <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Upload image</label>
+              </div>
+          </div>
+          <div class="btn-toolbar justify-content-between">
+              <div class="btn-group">
+                  <button type="submit" class="btn btn-primary">Share</button>
+              </div>
+          </div>         
+      </form>  
     </div>
+</div>
+<!-- Post /////-->
+<!--- \\\\\\\Post-->
+<div class="card gedf-card" *ngFor="let post of posts">
+  <div class="card-header">
+      <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="mr-2">
+                  <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+              </div>
+              <div class="ml-2">
+                  <div class="h7 text-muted">User Name</div>
+              </div>
+          </div>
+      </div>
   </div>
+  <div class="card-body">
+
+      <div class="text-muted h8 mb-2"> <i class="fa fa-clock-o"></i>{{post.date_time}}</div>
+
+      <h5 routerLink="/post/{{post.id}}" class="card-title">{{post.title}}</h5>
+
+      <p class="card-text">
+          {{post.description}}
+      </p>
+  </div>
+  <div class="card-footer">
+      <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+      <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+      <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+  </div>
+</div>
+<!-- Post /////-->
 </section>

@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule
   ],
-  providers: [AngularFireAuth],
+  providers: [AngularFireAuth, AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
