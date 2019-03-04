@@ -34,7 +34,18 @@ export class DataApiService {
     this.postsWall.add(post);
   }
 
-  //updatePost(){}
-  //deletePost(){}
+  getTimeStamp(){                             //
+    const now = new Date();
+    const date = now.getUTCFullYear() + '/' +
+                 (now.getUTCMonth() + 1) + '/' +
+                 now.getUTCDate();
+    const time = now.getUTCHours() + ':' +
+                 now.getUTCMinutes() + ':' +
+                 now.getUTCSeconds();  
+                 
+    return (date + ' ' + time);
+                 
+  }
+
 
 }

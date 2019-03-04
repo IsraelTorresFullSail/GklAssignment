@@ -1,18 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { UserInterface } from '../models/user';
 import { DataApiService } from '../data-api.service';
 import { PostInterface} from '../models/post';
-import { NgForm } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-wall',
   templateUrl: './wall.component.html',
   styleUrls: ['./wall.component.css']
 })
+
 export class WallComponent implements OnInit {
 
-  constructor(private authService: AuthService, private dataApi: DataApiService) { }
+   formPost = this.fb.group({
+     title: ['', Validators.required],
+     description: ['', Validators.required],
+     date_time: ['', Validators.required],
+   });
+
+  constructor(private authService: AuthService, private dataApi: DataApiService, private fb: FormBuilder) { }
 
   //-----Property to get the user name in the wall // TODO: verificar si o necesito
   user: UserInterface = {
@@ -46,9 +55,9 @@ export class WallComponent implements OnInit {
     });
   }
 
-  onSavePost(postForm: NgForm): void {
-    this.dataApi.addPost(postForm.value);
-    postForm.resetForm();
+  onSavePost(formPost: FormBuilder): void {
+    this.dataApi.addPost(this.formPost.value);
+    this.formPost.reset();
 
   }
 

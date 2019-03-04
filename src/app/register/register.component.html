@@ -11,10 +11,10 @@
                 <div class="alert alert-danger" role="alert" *ngIf="isError">
                   {{msgError}}
                 </div>
-                <!-- <div class="form-group">
-                  <input type="text" name="name" class="form-control" placeholder="Name" formControlName="name" required minlength="4"
+                <div class="form-group">
+                  <input type="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="name" required minlength="4"
                     maxlength="15">
-                </div> -->
+                </div>
 
                 <!--<div class="alert alert-danger" role="alert" *ngIf="name.touched && !name.valid">
                   <div *ngIf="name.errors.required">Name is required</div>

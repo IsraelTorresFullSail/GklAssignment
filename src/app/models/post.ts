@@ -3,4 +3,5 @@ export interface PostInterface {
     title?: string;
     description?: string;
     date_time?: string;
+    userUid?: string;
 }
