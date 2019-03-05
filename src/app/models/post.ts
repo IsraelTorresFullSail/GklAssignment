@@ -1,7 +1,8 @@
-export interface PostInterface {
+export class PostInterface {
     id?: string;
     title?: string;
     description?: string;
-    date_time?: string;
-    userUid?: string;
+    date_time? =  Date.now();
+    uid?: string;
 }
+

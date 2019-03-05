@@ -20,7 +20,7 @@
               <label class="sr-only" for="message">post</label>
               <textarea class="form-control" name="description" rows="3" placeholder="What are you thinking?" formControlName="description"></textarea>
           </div>
-          <div class="row">
+          <!-- <div class="row">
               <div class="col-md-6">
                     <div class="form-group">
                         <input type="datetime-local" class="form-control datetimepicker" name="date_time" value="{{today | date}}" formControlName="date_time">
@@ -34,7 +34,7 @@
                             </div>
                     </div>
               </div>
-          </div>
+          </div> -->
           <div class="btn-toolbar justify-content-between">
               <div class="btn-group">
                   <button type="submit" class="btn btn-primary">Share</button>
@@ -45,7 +45,7 @@
 </div>
 <!-- Post /////-->
 <!--- \\\\\\\Post-->
-<div class="card gedf-card" *ngFor="let post of posts">
+<div class="card gedf-card" *ngFor="let post of posts; trackBy: trackByCreated">
   <div class="card-header">
       <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-between align-items-center">
@@ -60,7 +60,7 @@
   </div>
   <div class="card-body">
 
-      <div class="text-muted h8 mb-2"> <i class="fa fa-calendar"></i>  {{post.date_time | date}}</div>
+      <div class="text-muted h8 mb-2"> <i class="fa fa-calendar"></i>  {{post.date_time | date: 'MMM d, y, h:mm:ss a'}}</div>
 
       <h5 routerLink="/post/{{post.id}}" class="card-title">{{post.title}}</h5>
 
