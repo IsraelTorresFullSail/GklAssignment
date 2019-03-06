@@ -2,6 +2,8 @@ import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -10,25 +12,31 @@ import { Observable } from 'rxjs';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService){}
+  constructor(private router: Router, private authService: AuthService, private storage: AngularFireStorage){}
 
   @ViewChild('userName') inputUserName: ElementRef;
+  @ViewChild('userImage') inputUserImage: ElementRef;
 
   public email: string = '';
   public password: string = '';
 
-  Name: Observable<string>;    //
+  //-----Properties to save the picture url
+  uploadPercent: Observable<number>;
+  urlImage: Observable<string>;
 
   ngOnInit(){
 
   }
 
-  // onAddUser(){
-  //   this.authService.registerUser(this.email, this.password)
-  //   .then((res) => {
-  //     this.router.navigate(['wall']);
-  //   }).catch( err => console.log('err', err.message));
-  // }
+  onUpload(e){
+    const id = Math.random().toString(36).substring(2);    //-----Variable to get a random number used to not overwrite files with the same name
+    const file = e.target.files[0];
+    const filePath =`uploads/picture_${id}`;
+    const ref = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    this.uploadPercent = task.percentageChanges();
+    task.snapshotChanges().pipe( finalize(() => this.urlImage = ref.getDownloadURL())).subscribe();
+  }
 
   onAddUser(){
     this.authService.registerUser(this.email, this.password)
@@ -36,7 +44,8 @@ export class RegisterComponent implements OnInit {
       this.authService.isAuth().subscribe( user => {
         if(user){
           user.updateProfile({
-            displayName: this.inputUserName.nativeElement.value
+            displayName: this.inputUserName.nativeElement.value,
+            photoURL: this.inputUserImage.nativeElement.value
           }).then( () => {
             console.log('USER UPDATED', user);
             this.router.navigate(['wall']);
@@ -44,11 +53,6 @@ export class RegisterComponent implements OnInit {
         }
       });
     }).catch( err => console.log('err', err.message));
-  }
-
-  onLoadname(e){                           //
-    console.log('Name', e.path[0].value)
-    const name = e.path[0].value;
   }
 
 }

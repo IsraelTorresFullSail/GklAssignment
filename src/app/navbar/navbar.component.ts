@@ -33,7 +33,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onLogout() {
-    this.afsAuth.auth.signOut(); //TODO: call this method from service
+    this.afsAuth.auth.signOut(); 
   }
 
 }

@@ -12,7 +12,7 @@
                   {{msgError}}
                 </div>
                 <div class="form-group">
-                  <input #userName [value]="Name" type="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="name" (change)="onLoadname($event)" required minlength="4" maxlength="15">
+                  <input #userName type="name" name="name" class="form-control" placeholder="Name" [(ngModel)]="name" required minlength="4" maxlength="15">
                 </div>
                 <div class="form-group">
                   <input type="email" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" required
@@ -22,6 +22,19 @@
                   <input type="password" name="password" class="form-control" placeholder="Password" [(ngModel)]="password"
                     required minlength="5" maxlength="10">
                 </div>
+
+                <h6>Select Profile Image:</h6>
+                <div class="form-group">
+                    <div class="custom-file">
+                        <input type="file" accept=".png, .jpg" class="custom-file-input" id="customFile" (change)="onUpload($event)">
+                        <label class="custom-file-label" for="customFile"></label>
+                    </div>
+             </div>
+             <div class="progress">
+                 <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadPercent | async) + '%'"></div>
+             </div>
+             <br>
+             <input #userImage type="hidden" [value]="urlImage | async"> 
                 <button type="submit" class="btn btn-lg btn-primary btn-block">Register</button>
                 <div class="form-group">
                   <a routerLink="login" class="form-control login-user">Do you have account?</a>

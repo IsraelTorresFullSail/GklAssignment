@@ -5,7 +5,7 @@
           <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex justify-content-between align-items-center">
                   <div class="ml-2">
-                      <div class="h5 m-0">Share your post here!</div>
+                      <div class="h5 m-0">Hello {{user.name}}, share your post here!</div>
                   </div>
               </div>
           </div>
@@ -20,18 +20,6 @@
               <label class="sr-only" for="message">post</label>
               <textarea class="form-control" name="description" rows="3" placeholder="What are you thinking?" formControlName="description"></textarea>
           </div>
-          <hr>
-          <div class="form-group">
-                <div class="custom-file">
-                    <input type="file" accept=".png, .jpg" class="custom-file-input" id="customFile" (change)="onUpload($event)">
-                    <label class="custom-file-label" for="customFile">Upload image</label>
-                </div>
-         </div>
-         <div class="progress">
-             <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width]="(uploadPercent | async) + '%'"></div>
-         </div>
-         <br>
-         <input #imagePost type="hidden" [value]="urlImage | async">     
           <div class="btn-toolbar justify-content-between">
               <div class="btn-group">
                   <button type="submit" class="btn btn-primary">Share</button>
@@ -47,7 +35,7 @@
       <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex justify-content-between align-items-center">
               <div class="mr-2">
-                  <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+                  <img class="user-avatar" src="{{post.imageURL}}" alt="User Avatar">
               </div>
               <div class="ml-2">
                   <div class="h7 text-muted">{{post.userName}}</div>
