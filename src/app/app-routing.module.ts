@@ -6,7 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'wall', pathMatch: 'full'},
   { path: 'wall', component: WallComponent, canActivate: [AuthGuard] }, 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
