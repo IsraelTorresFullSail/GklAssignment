@@ -4,6 +4,6 @@ export class PostInterface {
     description?: string;
     date_time? =  Date.now();
     imageURL?: string;
-    uid?: string;
+    userName?: string;
 }
 

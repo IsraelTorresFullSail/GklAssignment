@@ -8,13 +8,27 @@ import { Router } from '@angular/router';
 import { firestore } from 'firebase/app';
 import { Observable, combineLatest, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataApiService {
 
-  constructor(private afs: AngularFirestore, private auth: AuthService, private router: Router) {
+  user: Observable<firebase.User>;
+  userName: string;
+
+  constructor(private afs: AngularFirestore, private auth: AuthService, private router: Router, private afsAuth: AngularFireAuth) {
+    
+    this.user = afsAuth.authState;
+    this.user.subscribe((user: firebase.User) => {
+      if(user != null){
+        this.userName = user.displayName;
+        console.log(`[constructor]userName : ${this.userName}`);
+      }
+    });
+
     this.postsWall = afs.collection<PostInterface>('posts');
     this.posts = this.postsWall.valueChanges();
    }
@@ -39,43 +53,14 @@ export class DataApiService {
     if(post.date_time == null){
       post.date_time = Date.now();
     }
+    if(post.userName == null){
+      post.userName = this.userName;
+    }
     this.postsWall.add(post);
   }
 
-  // joinUsers(post$: Observable<any>){
-  //   let post;
-  //   const joinKeys = {};
-  //   return post$.pipe(
-  //     switchMap(p => {
-  //       post = p;
-  //       const uids = Array.from(new Set(p.posts.map(v => v.uid)));
-  //       const userDocs = uids.map(u =>
-  //           this.afs.doc(`users/${u}`).valueChanges()
-  //         );
-  //         return userDocs.length ? combineLatest(userDocs) : of([]);
-  //     }),
-  //     map(arr => {
-  //       arr.forEach(v => (joinKeys[(<any>v).uid] = v));
-  //       post.posts = post.posts.map(v => {
-  //         return { ...v, user: joinKeys[v.uid] };
-  //       });
-  //       return post;
-  //     })
-  //   )
-  // }
+  
 
-  // getTimeStamp(){                             //
-  //   const now = new Date();
-  //   const date = now.getUTCFullYear() + '/' +
-  //                (now.getUTCMonth() + 1) + '/' +
-  //                now.getUTCDate();
-  //   const time = now.getUTCHours() + ':' +
-  //                now.getUTCMinutes() + ':' +
-  //                now.getUTCSeconds();  
-                 
-  //   return (date + ' ' + time);
-                 
-  // }
 
 
 }
