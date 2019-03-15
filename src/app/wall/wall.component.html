@@ -11,7 +11,7 @@
           </div>
       </div>
     <div class="card-body">
-      <form [formGroup]="formPost" (ngSubmit)="onSavePost(formPost)">
+      <form [formGroup]="formPost" (ngSubmit)="onSavePost()">
           <div class="form-group">
               <label for="title" class="col-form-label"></label>
               <input type="text" class="form-control" name="title" placeholder="Post Title" formControlName="title">

@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { DataApiService } from '../data-api.service';
 import { PostInterface} from '../models/post';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { UserInterface } from '../models/user';
 
@@ -16,7 +15,7 @@ import { UserInterface } from '../models/user';
 export class WallComponent implements OnInit {
 
   //-----Creating the Reactive Form with FormBuilder to generate control
-   formPost = this.fb.group({
+  formPost = this.fb.group({
      title: ['', Validators.required],
      description: ['', Validators.required],
    });
@@ -63,7 +62,7 @@ export class WallComponent implements OnInit {
     });
   }
 
-  onSavePost(formPost: FormBuilder): void {
+  onSavePost(): void {
     this.dataApi.addPost(this.formPost.value);
     this.formPost.reset();
   }

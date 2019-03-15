@@ -9,8 +9,8 @@ import { LogoutGuard } from './logout.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'wall', pathMatch: 'full'},
   { path: 'wall', component: WallComponent, canActivate: [AuthGuard] }, 
-  { path: 'login', component: LoginComponent, canActivate: [LogoutGuard] },
-  { path: 'register', component: RegisterComponent, canActivate: [LogoutGuard] }
+  { path: 'login', component: LoginComponent },                            // TODO: config logout.guard.ts for this path
+  { path: 'register', component: RegisterComponent }                       // TODO: config logout.guard.ts for this path
 
 ];
 
